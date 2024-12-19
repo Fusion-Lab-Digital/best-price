@@ -1,0 +1,23 @@
+<?php
+/**
+ * @copyright Copyright (c) 2024 Fusion Lab G.P
+ * @package FusionLab_BestPrice
+ */
+
+/** @var \FusionLab\BestPrice\Block\Head $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+?>
+
+<!-- START Best Price 360 Analytics -->
+
+<script type="text/javascript">
+    (function (a, b, c, d, s) {a.__bp360 = c;a[c] = a[c] || function (){(a[c].q = a[c].q || []).push(arguments);};
+        s = b.createElement('script'); s.async = true; s.src = d; (b.body || b.head).appendChild(s);})
+    (window, document, 'bp', 'https://360.bestprice.gr/360.js');
+    bp('connect', '<?php echo $escaper->escapeHtml($block->getAnalyticsId()); ?>');
+    bp('native', true);
+
+</script>
+
+<!-- END Best Price 360 Analytics -->

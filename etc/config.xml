@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @copyright Copyright (c) 2024 Fusion Lab G.P
+ * @package FusionLab_BestPrice
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <fusionlab_bestprice>
+            <general>
+                <enable>0</enable>
+                <product_identifier>sku</product_identifier>
+            </general>
+        </fusionlab_bestprice>
+    </default>
+</config>

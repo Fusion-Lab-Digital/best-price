@@ -1,0 +1,30 @@
+<?php
+/**
+ * @copyright Copyright (c) 2024 Fusion Lab G.P
+ * @package FusionLab_BestPrice
+ */
+/** @var \FusionLab\BestPrice\Block\Success $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+
+$orderData = $block->getOrdersTrackingData();
+
+echo json_encode($orderData['products'][0]);
+?>
+
+
+<?php if(isset($orderData['orders']) && isset($orderData['products'])):  ?>
+    <!-- START Best Price 360 send orders and products -->
+    <script type="text/javascript">
+        <?php  foreach ($orderData['orders'] as $order):?>
+        bp('addOrder', <?php echo json_encode($order); ?>);
+        <?php endforeach;?>
+
+        <?php  foreach ($orderData['products'] as $order):?>
+        bp('addProduct', <?php echo json_encode($order); ?>);
+        <?php endforeach;?>
+
+    </script>
+    <!-- END Best Price 360 send orders and products -->
+<?php endif  ?>
+

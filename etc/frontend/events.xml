@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2024 Fusion Lab G.P
+ * @package FusionLab_BestPrice
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="bestprice_order_success" instance="FusionLab\BestPrice\Observer\OrderSuccessObserver" />
+    </event>
+    <event name="multishipping_checkout_controller_success_action">
+        <observer name="bestprice_order_success" instance="Magento\GoogleAnalytics\Observer\OrderSuccessObserver" />
+    </event>
+</config>

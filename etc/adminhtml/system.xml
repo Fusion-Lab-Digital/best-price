@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2024 Fusion Lab G.P
+ * @package FusionLab_BestPrice
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="fusionlab_bestprice" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+            <class>separator-top</class>
+            <label><![CDATA[Best Price]]></label>
+            <tab>fusionlab</tab>
+            <resource>Magento_Backend::admin</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Module?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="analytics_id" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>360 Analytics Id</label>
+                    <comment>Your 360 Best Price Analytics Id. BP-XXXXX</comment>
+                    <validate>required-entry</validate>
+                    <backend_model>FusionLab\BestPrice\Model\Adminhtml\Backend\AnalyticsIdValidator</backend_model>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+                <field id="product_identifier" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Product Identifier</label>
+                    <comment>Will be used in product XML export as the unique product identifier. Will also be used in the frontend to send events.</comment>
+                    <source_model>FusionLab\BestPrice\Model\Source\Config\ProductIdentifier</source_model>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
