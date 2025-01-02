@@ -1,30 +1,41 @@
 <?php
 /**
- * @copyright Copyright (c) 2024 Fusion Lab G.P
- * @package FusionLab_BestPrice
+ * Copyright (c) 2025 Fusion Lab G.P
+ * Website: https://fusionlab.gr
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 /** @var \FusionLab\BestPrice\Block\Success $block */
 /** @var \Magento\Framework\Escaper $escaper */
 
 
 $orderData = $block->getOrdersTrackingData();
 
-echo json_encode($orderData['products'][0]);
 ?>
 
 
-<?php if(isset($orderData['orders']) && isset($orderData['products'])):  ?>
+<?php if (isset($orderData['orders']) && isset($orderData['products'])) :  ?>
     <!-- START Best Price 360 send orders and products -->
     <script type="text/javascript">
-        <?php  foreach ($orderData['orders'] as $order):?>
+        <?php  foreach ($orderData['orders'] as $order) :?>
         bp('addOrder', <?php echo json_encode($order); ?>);
         <?php endforeach;?>
 
-        <?php  foreach ($orderData['products'] as $order):?>
+        <?php  foreach ($orderData['products'] as $order) :?>
         bp('addProduct', <?php echo json_encode($order); ?>);
         <?php endforeach;?>
-
     </script>
     <!-- END Best Price 360 send orders and products -->
-<?php endif  ?>
+<?php endif;
 
