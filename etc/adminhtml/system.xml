@@ -19,7 +19,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <section id="fusionlab_bestprice" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+        <section id="fusionlab_bestprice" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
             <class>separator-top</class>
             <label><![CDATA[Best Price]]></label>
             <tab>fusionlab</tab>
@@ -47,6 +47,92 @@
                         <field id="*/*/enable">1</field>
                     </depends>
                 </field>
+            </group>
+            <group id="xml" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>XML Export Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Export?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="batch_size" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Collection Batch Size</label>
+                    <comment>Adjust this number according to your server capabilities.</comment>
+                    <validate>validate-number</validate>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+                <field id="cron_expression" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cron Expression</label>
+                    <validate>required-entry</validate>
+                    <backend_model>FusionLab\BestPrice\Model\Adminhtml\Backend\CronExpressionValidator</backend_model>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+                <group id="mapping" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Attributes Mapping</label>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                    <!-- Availability -->
+                    <field id="availability_from_product" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Get Availability via Product Attribute?</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="availability_product_attribute" translate="label" type="select" sortOrder="20" showInDefault="40" showInWebsite="1" showInStore="1">
+                        <label>Availability Attribute</label>
+                        <source_model>FusionLab\BestPrice\Model\Source\Config\ProductTextAttributes</source_model>
+                        <depends>
+                            <field id="availability_from_product">1</field>
+                        </depends>
+                    </field>
+                    <field id="fixed_availability" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Product Availability Text</label>
+                        <depends>
+                            <field id="availability_from_product">0</field>
+                        </depends>
+                    </field>
+                    <!-- Brand -->
+                    <field id="brand_from_product" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Get Brand via Product Attribute?</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="brand_product_attribute" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Brand Attribute</label>
+                        <validate>required-entry</validate>
+                        <source_model>FusionLab\BestPrice\Model\Source\Config\ProductSelectAndTextAttributes</source_model>
+                        <depends>
+                            <field id="brand_from_product">1</field>
+                        </depends>
+                    </field>
+                    <field id="fixed_brand" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Product Brand Text</label>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="brand_from_product">0</field>
+                        </depends>
+                    </field>
+                    <!-- MPN -->
+                    <field id="mpn_product_attribute" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>MPN Attribute</label>
+                        <validate>required-entry</validate>
+                        <source_model>FusionLab\BestPrice\Model\Source\Config\ProductSelectAndTextAttributes</source_model>
+                    </field>
+                    <!-- Size -->
+                    <field id="size_product_attribute" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Size Attribute</label>
+                        <validate>required-entry</validate>
+                        <source_model>FusionLab\BestPrice\Model\Source\Config\ProductSelectAndTextAttributes</source_model>
+                    </field>
+                    <!-- Color -->
+                    <field id="color_product_attribute" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Color Attribute</label>
+                        <validate>required-entry</validate>
+                        <source_model>FusionLab\BestPrice\Model\Source\Config\ProductSelectAndTextAttributes</source_model>
+                    </field>
+                </group>
             </group>
         </section>
     </system>
