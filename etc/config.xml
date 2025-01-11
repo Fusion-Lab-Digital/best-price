@@ -25,6 +25,15 @@
                 <enable>0</enable>
                 <product_identifier>sku</product_identifier>
             </general>
+            <xml>
+                <enable>0</enable>
+                <cron_expression>0 */2 * * *</cron_expression>
+                <batch_size>1000</batch_size>
+                <filters>
+                    <include_out_of_stock>0</include_out_of_stock>
+                    <include_with_attribute>0</include_with_attribute>
+                </filters>
+            </xml>
         </fusionlab_bestprice>
     </default>
 </config>

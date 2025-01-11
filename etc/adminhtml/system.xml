@@ -54,15 +54,21 @@
                     <label>Enable Export?</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="batch_size" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="batch_size" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Collection Batch Size</label>
                     <comment>Adjust this number according to your server capabilities.</comment>
-                    <validate>validate-number</validate>
+                    <validate>required-entry validate-number</validate>
                     <depends>
                         <field id="*/*/enable">1</field>
                     </depends>
                 </field>
-                <field id="cron_expression" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="store_view" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Store View</label>
+                    <validate>required-entry</validate>
+                    <comment>Xml will be exported for each Store View you select in the list. Xml will be on [store_url]/fusionlab_feeds/[website][storeview]_bestprice.xml</comment>
+                    <source_model>Magento\Store\Model\System\Store</source_model>
+                </field>
+                <field id="cron_expression" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Cron Expression</label>
                     <validate>required-entry</validate>
                     <backend_model>FusionLab\BestPrice\Model\Adminhtml\Backend\CronExpressionValidator</backend_model>
@@ -131,6 +137,32 @@
                         <label>Color Attribute</label>
                         <validate>required-entry</validate>
                         <source_model>FusionLab\BestPrice\Model\Source\Config\ProductSelectAndTextAttributes</source_model>
+                    </field>
+                </group>
+                <group id="filters" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Filters</label>
+                    <field id="exclude_categories" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Categories to exclude</label>
+                        <comment>Select from which categories you do not want products to appear in the XML</comment>
+                        <source_model>FusionLab\BestPrice\Model\Source\Config\CategoriesSource</source_model>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="include_out_of_stock" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Include Out of Stock?</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="include_with_attribute" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Include with Flag?</label>
+                        <comment>Only include products that have a Yes/No attribute to Yes</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="flag_attribute" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Flag Attribute</label>
+                        <validate>required-entry</validate>
+                        <source_model>FusionLab\BestPrice\Model\Source\Config\ProductSelectAttributes</source_model>
+                        <depends>
+                            <field id="include_with_attribute">1</field>
+                        </depends>
                     </field>
                 </group>
             </group>
