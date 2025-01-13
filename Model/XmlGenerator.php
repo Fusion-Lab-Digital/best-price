@@ -28,7 +28,6 @@ use Magento\Framework\App\Area;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\App\State;
-use Magento\Framework\Currency;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\LocalizedException;
@@ -42,6 +41,8 @@ use Magento\Store\Model\StoreManagerInterface;
 class XmlGenerator
 {
 
+    const XML_WRITE_DIR = 'fusionlab_feeds';
+
     private ConfigProvider $configProvider;
 
     private CollectionFactory $collectionFactory;
@@ -52,19 +53,17 @@ class XmlGenerator
 
     private State $state;
 
-    private Currency $currency;
-
     private SourceItemRepositoryInterface $sourceItemRepository;
 
     private SearchCriteriaBuilder $searchCriteriaBuilder;
 
     private AdapterInterface $connection;
 
-    private DirectoryList $directoryList;
-
     private File $file;
 
     private Filesystem $filesystem;
+
+    private UrlProcessor $urlProcessor;
 
     private ?\XMLWriter $xmlWriter;
 
@@ -90,11 +89,9 @@ class XmlGenerator
      * @param CategoryRepositoryInterface $categoryRepository
      * @param StoreManagerInterface $storeManager
      * @param State $state
-     * @param Currency $currency
      * @param SourceItemRepositoryInterface $sourceItemRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param ResourceConnection $connection
-     * @param DirectoryList $directoryList
      * @param File $file
      * @param Filesystem $filesystem
      */
@@ -104,29 +101,27 @@ class XmlGenerator
         CategoryRepositoryInterface   $categoryRepository,
         StoreManagerInterface         $storeManager,
         State                         $state,
-        Currency                      $currency,
         SourceItemRepositoryInterface $sourceItemRepository,
         SearchCriteriaBuilder         $searchCriteriaBuilder,
         ResourceConnection            $connection,
-        DirectoryList                 $directoryList,
         File                          $file,
         Filesystem                    $filesystem,
+        UrlProcessor $urlProcessor,
     ) {
         $this->configProvider = $configProvider;
         $this->collectionFactory = $collectionFactory;
         $this->categoryRepository = $categoryRepository;
         $this->storeManager = $storeManager;
         $this->state = $state;
-        $this->currency = $currency;
         $this->sourceItemRepository = $sourceItemRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->connection = $connection->getConnection();
-        $this->directoryList = $directoryList;
         $this->file = $file;
         $this->filesystem = $filesystem;
         $this->productIdentifier = $this->configProvider->getProductIdentifier();
         $this->availabilityFromProduct = $this->configProvider->getIsAvailabilityFromProductAttribute();
         $this->manufacturerFromProduct = $this->configProvider->getIsBrandFromProductAttribute();
+        $this->urlProcessor = $urlProcessor;
     }
 
     /**
@@ -166,7 +161,6 @@ class XmlGenerator
         $this->xmlWriter->setIndentString('    ');
         $this->xmlWriter->startDocument('1.0', 'UTF-8');
         $this->xmlWriter->startElement('store');
-
 
         $productCollection = $this->getCollection();
         $totalItems = $productCollection->getSize();
@@ -209,7 +203,7 @@ class XmlGenerator
 
         $this->insertRow('uuid', $this->getProductIdentifier($product));
         $this->insertRow('title', html_entity_decode($product->getName()));
-        $this->insertRow('productURL', $product->getProductUrl());
+        $this->insertRow('productURL', $this->urlProcessor->getUrl($product));
         $this->insertRow('price', $product->getFinalPrice() . ' ' . $this->storeManager->getStore()->getCurrentCurrency()->getCode());
         $this->insertRow('category_name', html_entity_decode($this->getCategoriesNames($product)));
         $this->insertRow('manufacturer', $this->getProductBrandValue($product));
@@ -249,7 +243,7 @@ class XmlGenerator
      */
     private function saveXml(string $xml)
     {
-        $xmlDirectory = $this->filesystem->getDirectoryRead(DirectoryList::PUB)->getAbsolutePath('fusionlab_feeds');
+        $xmlDirectory = $this->filesystem->getDirectoryRead(DirectoryList::PUB)->getAbsolutePath(self::XML_WRITE_DIR);
 
         if ($this->filesystem->getDirectoryWrite(DirectoryList::PUB)->getAbsolutePath($xmlDirectory)) {
             $this->file->mkdir($xmlDirectory, 0755);
@@ -258,7 +252,7 @@ class XmlGenerator
         $websiteCode = preg_replace('/([a-z])([A-Z])/', '$1_$2', $websiteCode);
         $websiteCode = strtolower($websiteCode);
 
-        $completePath = $xmlDirectory . DIRECTORY_SEPARATOR . $websiteCode . $this->storeManager->getStore()->getCode() . '_bestprice.xml';
+        $completePath = $xmlDirectory . DIRECTORY_SEPARATOR . $websiteCode . DIRECTORY_SEPARATOR . $this->storeManager->getStore()->getCode() . '_bestprice.xml';
         $this->file->write($completePath, $xml);
     }
 
@@ -340,7 +334,24 @@ class XmlGenerator
             $attributes[] = $this->configProvider->getProductBrandAttribute();
         }
 
-        return $attributes;
+        $select = $this->connection->select()
+            ->from(
+                ['cpsl' => $this->connection->getTableName('catalog_product_super_link')],
+                ['eav.attribute_code']
+            )
+            ->join(
+                ['cpsa' => $this->connection->getTableName('catalog_product_super_attribute')],
+                'cpsl.parent_id = cpsa.product_id',
+                []
+            )
+            ->join(
+                ['eav' => $this->connection->getTableName('eav_attribute')],
+                'cpsa.attribute_id = eav.attribute_id',
+                []
+            )
+            ->group('eav.attribute_code');
+
+        return array_merge($attributes, $this->connection->fetchCol($select));
     }
 
     /**

@@ -1,0 +1,116 @@
+$custom-red: #cd2315;
+$background-color: #f3f4f6;
+$card-background: #ffffff;
+$text-color: #1f2937;
+$text-color-light: #4b5563;
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: $background-color;
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: $text-color;
+    margin-bottom: 2rem;
+    position: relative;
+
+    span {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.feed-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.feed-card {
+    background-color: $card-background;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    &:hover {
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.card-content {
+    padding: 1.5rem;
+    position: relative;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-color;
+    margin-bottom: 1rem;
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    color: $text-color-light;
+
+    svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-right: 0.5rem;
+        fill: $custom-red;
+    }
+}
+
+.detail-label {
+    font-weight: 500;
+    margin-right: 0.25rem;
+}
+
+.card-action {
+    margin-top: 1.5rem;
+}
+
+.view-feed-btn {
+    display: inline-block;
+    background-color: $custom-red;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: darken($custom-red, 10%);
+    }
+}
+
+@media (max-width: 768px) {
+    .feed-grid {
+        grid-template-columns: 1fr;
+    }
+}

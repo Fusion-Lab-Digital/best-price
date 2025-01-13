@@ -19,11 +19,9 @@
 /** @var \FusionLab\BestPrice\Block\Success $block */
 /** @var \Magento\Framework\Escaper $escaper */
 
-
 $orderData = $block->getOrdersTrackingData();
 
 ?>
-
 
 <?php if (isset($orderData['orders']) && isset($orderData['products'])) :  ?>
     <!-- START Best Price 360 send orders and products -->
@@ -33,9 +31,10 @@ $orderData = $block->getOrdersTrackingData();
         <?php endforeach;?>
 
         <?php  foreach ($orderData['products'] as $order) :?>
-        bp('addProduct', <?php echo json_encode($order); ?>);
-        <?php endforeach;?>
+        bp('addProduct', <?php echo  json_encode($order); ?>);
+        <?php endforeach ; ?>
     </script>
     <!-- END Best Price 360 send orders and products -->
 <?php endif;
+
 
