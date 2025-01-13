@@ -50,7 +50,7 @@
             </group>
             <group id="xml" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>XML Export Settings</label>
-                <field id="xml_files" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="xml_files" type="text" translate="label" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Xml Files</label>
                     <frontend_model>FusionLab\BestPrice\Block\Adminhtml\XmlInfo</frontend_model>
                 </field>
