@@ -106,7 +106,7 @@ class XmlGenerator
         ResourceConnection            $connection,
         File                          $file,
         Filesystem                    $filesystem,
-        UrlProcessor $urlProcessor,
+        UrlProcessor $urlProcessor
     ) {
         $this->configProvider = $configProvider;
         $this->collectionFactory = $collectionFactory;

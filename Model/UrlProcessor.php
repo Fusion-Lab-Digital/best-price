@@ -17,12 +17,11 @@
  */
 namespace FusionLab\BestPrice\Model;
 
-use FusionLab\VidaXL\Model\Product\UrlProcessorInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 
-class UrlProcessor implements UrlProcessorInterface
+class UrlProcessor
 {
 
     private ?array $configurableData = null;
@@ -49,7 +48,6 @@ class UrlProcessor implements UrlProcessorInterface
     public function getUrl(\Magento\Catalog\Api\Data\ProductInterface $product): string
     {
         $this->_initData();
-
 
         if (!isset($this->configurableData[$product->getId()])){
             return $product->getProductUrl();
