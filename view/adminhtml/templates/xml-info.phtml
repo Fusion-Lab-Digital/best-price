@@ -19,45 +19,43 @@
 
 $xmls = $block->getXmls();
 
-if (!$xmls) {
-    exit;
-}
 ?>
 
-
-<div class="feed-grid">
-    <?php foreach ($xmls as $xml) : ?>
-        <div class="feed-card">
-            <a href="<?php echo $xml['link'] ?>" target="_blank">
-                <div class="card-content">
-                    <h2 class="card-title"><?php echo $xml['name']; ?></h2>
-                    <div class="card-details">
-                        <p class="detail-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                      d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                            <span class="detail-label">Size:</span> <?php echo $xml['size'] ?>
-                        </p>
-                        <p class="detail-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                      d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                            <span class="detail-label">Modified:</span> <?php echo $xml['modded'] ?>
-                        </p>
+<?php if ($xmls): ?>
+    <div class="feed-grid">
+        <?php foreach ($xmls as $xml) : ?>
+            <div class="feed-card">
+                <a href="<?php echo $xml['link'] ?>" target="_blank">
+                    <div class="card-content">
+                        <h2 class="card-title"><?php echo $xml['name']; ?></h2>
+                        <div class="card-details">
+                            <p class="detail-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                          d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z"
+                                          clip-rule="evenodd"/>
+                                </svg>
+                                <span class="detail-label">Size:</span> <?php echo $xml['size'] ?>
+                            </p>
+                            <p class="detail-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                          clip-rule="evenodd"/>
+                                </svg>
+                                <span class="detail-label">Modified:</span> <?php echo $xml['modded'] ?>
+                            </p>
+                        </div>
+                        <div class="card-action">
+                            <a href="<?php echo $xml['link'] ?>" target="_blank" class="view-feed-btn">
+                                <?php echo __('View'); ?>
+                            </a>
+                        </div>
                     </div>
-                    <div class="card-action">
-                        <a href="<?php echo $xml['link'] ?>" target="_blank" class="view-feed-btn">
-                            <?php echo __('View'); ?>
-                        </a>
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
 
-    <?php endforeach; ?>
-</div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 

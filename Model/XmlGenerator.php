@@ -229,7 +229,7 @@ class XmlGenerator
      * @param string $value
      * @return void
      */
-    private function insertRow(string $name, string $value):void
+    private function insertRow(string $name, ?string $value = null):void
     {
         $this->xmlWriter->startElement($name);
         $this->xmlWriter->writeCdata($value);
@@ -252,7 +252,7 @@ class XmlGenerator
         $websiteCode = preg_replace('/([a-z])([A-Z])/', '$1_$2', $websiteCode);
         $websiteCode = strtolower($websiteCode);
 
-        $completePath = $xmlDirectory . DIRECTORY_SEPARATOR . $websiteCode . DIRECTORY_SEPARATOR . $this->storeManager->getStore()->getCode() . '_bestprice.xml';
+        $completePath = $xmlDirectory . DIRECTORY_SEPARATOR . $websiteCode . '_' . $this->storeManager->getStore()->getCode() . '_bestprice.xml';
         $this->file->write($completePath, $xml);
     }
 
@@ -298,6 +298,7 @@ class XmlGenerator
             ->addAttributeToSelect($this->getProductCollectionSelectAttributes())
             ->addAttributeToFilter('status', Status::STATUS_ENABLED)
             ->addAttributeToFilter('small_image', ['neq' => 'no_selection'])
+            ->addAttributeToFilter('type_id', 'simple')
             ->addCategoriesFilter(['nin' => $this->configProvider->getExcludedCategoryIds()]);
 
         if ($this->configProvider->shouldIncludeOutOfStockProducts()) {
@@ -308,6 +309,7 @@ class XmlGenerator
         }
 
         $collection->addMediaGalleryData();
+        $collection->addFinalPrice();
         return $collection;
     }
 

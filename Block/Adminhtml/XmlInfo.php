@@ -79,13 +79,14 @@ class XmlInfo extends Field
      */
     public function getXmls(): array
     {
-
         $xmls = [];
         $pubFolder = $this->filesystem->getDirectoryRead(DirectoryList::PUB);
         if (!is_dir($pubFolder->getAbsolutePath(XmlGenerator::XML_WRITE_DIR))) {
             return $xmls;
         }
+
         $xmlFolder = $pubFolder->getAbsolutePath(XmlGenerator::XML_WRITE_DIR);
+
         $files = scandir($xmlFolder);
 
         foreach ($files as $file) {
@@ -99,6 +100,7 @@ class XmlInfo extends Field
                 ];
             }
         }
+
         return $xmls;
     }
 

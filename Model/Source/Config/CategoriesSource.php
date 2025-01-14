@@ -31,7 +31,7 @@ class CategoriesSource implements OptionSourceInterface
      * @param CollectionFactory $categoryCollectionFactory
      */
     public function __construct(
-        CollectionFactory $categoryCollectionFactory,
+        CollectionFactory $categoryCollectionFactory
     ) {
         $this->categoryCollectionFactory = $categoryCollectionFactory;
     }
