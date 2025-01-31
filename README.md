@@ -24,7 +24,7 @@ The XML Product Export supports multi-store view environments and is fully compa
 ## 🛠️ Installation
 
 ### Install via Composer 2.x
-We recommend to install this module via a compatible version of [Composer 2.x](https://getcomposer.org/download/) for your Magento 2 Installtion.
+We recommend to install this module via a compatible version of [Composer 2.x](https://getcomposer.org/download/) for your Magento 2 Installation.
 
 See your [Magento 2 Requirements here](https://experienceleague.adobe.com/en/docs/commerce-operations/installation-guide/system-requirements). 
 ```bash
