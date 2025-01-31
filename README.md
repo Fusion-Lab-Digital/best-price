@@ -106,6 +106,8 @@ And also they can be viewed in the admin
 
 This module is licensed under the Apache 2.0 License. See [LICENSE](LICENSE) for details.
 
+
 ## 📩 Support
 
-For any issues or feature requests, please open an issue on [GitHub Issues](https://github.com/Fusion-Lab-Digital/best-price/issues) or contact info@fusionlab.gr.
+For any issues, feature requests, or inquiries, please open an issue on [GitHub Issues](https://github.com/Fusion-Lab-Digital/m2.core/issues), contact us at info@fusionlab.gr, or visit our website at [fusionlab.gr](https://fusionlab.gr) for more information.
+
