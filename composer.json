@@ -5,7 +5,7 @@
     "require": {
         "php": ">=7.4",
         "magento/framework": ">=103.0.0",
-        "fusionlab/core": ">=0.1"
+        "fusionlab/core": ">=0.1.0"
     },
     "type": "magento2-module",
     "version": "0.1.0",
