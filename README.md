@@ -28,7 +28,7 @@ We recommend to install this module via a compatible version of [Composer 2.x](h
 
 See your [Magento 2 Requirements here](https://experienceleague.adobe.com/en/docs/commerce-operations/installation-guide/system-requirements). 
 ```bash
-composer require fusionlab/best-price
+composer require fusionlab-digital/best-price
 php bin/magento module:enable FusionLab_BestPrice FusionLab_Core
 php bin/magento setup:upgrade
 php bin/magento s:d:c

@@ -1,11 +1,11 @@
 {
-    "name": "fusionlab/best-price",
+    "name": "fusionlab-digital/best-price",
     "description": "Fusion Lab Best Price Module",
     "license": ["Apache-2.0"],
     "require": {
         "php": ">=7.4",
         "magento/framework": ">=103.0.0",
-        "fusionlab/core": ">=0.1.0"
+        "fusionlab-digital/core": ">=0.1.0"
     },
     "type": "magento2-module",
     "version": "0.1.0",
