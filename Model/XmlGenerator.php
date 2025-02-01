@@ -67,7 +67,7 @@ class XmlGenerator
 
     private ?\XMLWriter $xmlWriter;
 
-    private string $productIdentifier;
+    private ?string $productIdentifier;
 
     private ?string $currentWebsiteCode;
 

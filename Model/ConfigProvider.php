@@ -86,9 +86,9 @@ class ConfigProvider
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getProductIdentifier(): string
+    public function getProductIdentifier(): ?string
     {
         return $this->scopeConfig->getValue(self::XML_PATH_BESTPRICE_PRODUCT_IDENTIFIER, ScopeInterface::SCOPE_STORE);
     }
