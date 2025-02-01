@@ -8,20 +8,23 @@
 
 Enable <b>[BestPrice](https://bestprice.gr) 360 Analytics</b> and Integrate your Magento 2 Store with BestPrice with the built-in <b>XML Product Export</b>.
 
+The XML Product Export supports multi-store view environments and is fully compatible with Magento 2's MSI (Multi-Source Inventory) system. It is also optimized to efficiently handle large volumes of data (tested with ~250k products).
+
+
 ## ⚡ Features
 
 - BestPrice 360 Analytics
 - - With Multishipping Checkout Support
 - - Configurable Product Identifier (sku or product id)
 - Product XML Export
-- - Optimized Export (250k products ~ 15 minutes export time)
+- - Optimized Export
 - - Multi-Website Support
 - - Admin Configuration
 
 ## 🛠️ Installation
 
 ### Install via Composer 2.x
-We recommend to install this module via a compatible version of [Composer 2.x](https://getcomposer.org/download/) for your Magento 2 Installtion.
+We recommend to install this module via a compatible version of [Composer 2.x](https://getcomposer.org/download/) for your Magento 2 Installation.
 
 See your [Magento 2 Requirements here](https://experienceleague.adobe.com/en/docs/commerce-operations/installation-guide/system-requirements). 
 ```bash
@@ -103,6 +106,8 @@ And also they can be viewed in the admin
 
 This module is licensed under the Apache 2.0 License. See [LICENSE](LICENSE) for details.
 
+
 ## 📩 Support
 
-For any issues or feature requests, please open an issue on [GitHub Issues](https://github.com/Fusion-Lab-Digital/best-price/issues) or contact info@fusionlab.gr.
+For any issues, feature requests, or inquiries, please open an issue on [GitHub Issues](https://github.com/Fusion-Lab-Digital/m2.core/issues), contact us at info@fusionlab.gr, or visit our website at [fusionlab.gr](https://fusionlab.gr) for more information.
+
