@@ -46,7 +46,6 @@ class Head extends Template
      */
     public function getAnalyticsId(): string
     {
-        $this->getUrl('');
         return $this->configProvider->getAnalyticsId();
     }
 }
