@@ -67,7 +67,6 @@ class Success extends \Magento\Framework\View\Element\Template
         $collection = $this->salesOrderCollection->create();
         $collection->addFieldToFilter('entity_id', ['in' => $orderIds]);
 
-
         /** @var OrderInterface $order */
         foreach ($collection as $order) {
             foreach ($order->getAllVisibleItems() as $item) {
@@ -76,7 +75,7 @@ class Success extends \Magento\Framework\View\Element\Template
                     'price' => $item->getPrice(),
                     'productId' => $this->getProductIdentifier($item),
                     'quantity' => (float) $item->getQtyOrdered(),
-                    'tittle' => addslashes($item->getName()),
+                    'title' => addslashes($item->getName()),
                 ];
             }
             $result['orders'][] = [
